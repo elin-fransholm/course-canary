@@ -15,32 +15,32 @@ ingress_details:
 
 # Metrics
 main_deployment_metrics:
-  http_requests_total: #TODO: Enter the value from main deployment's /metrics endpoint
-  process_cpu_seconds_total: #TODO: Enter the CPU seconds from main deployment
-  process_resident_memory_bytes: #TODO: Enter the memory usage from main deployment
+  http_requests_total: 33.0 #the value from main deployment's /metrics endpoint
+  process_cpu_seconds_total: 0.45999999999999996 #the CPU seconds from main deployment
+  process_resident_memory_bytes: 3.1744e+07 #the memory usage from main deployment
 
 canary_deployment_metrics:
-  http_requests_total: #TODO: Enter the value from canary deployment's /metrics endpoint
-  process_cpu_seconds_total: #TODO: Enter the CPU seconds from canary deployment
-  process_resident_memory_bytes: #TODO: Enter the memory usage from canary deployment
+  http_requests_total: 60 #the value from canary deployment
+  process_cpu_seconds_total: 0.52 #the CPU seconds from canary deployment
+  process_resident_memory_bytes: 3.1858688e+07 #the memory usage from canary deployment
 
 # Traffic Distribution Test
 traffic_test_results:
-  total_requests_sent: #TODO: Enter how many test requests you sent (should be 20)
-  main_responses_received: #TODO: Enter how many responses were from main deployment
-  canary_responses_received: #TODO: Enter how many responses were from canary deployment
-  actual_canary_percentage: #TODO: Calculate the actual percentage of canary traffic
+  total_requests_sent: 20 #how many test requests you sent (should be 20)
+  main_responses_received: 14 #how many responses were from main deployment
+  canary_responses_received: 6 #how many responses were from canary deployment
+  actual_canary_percentage: 30.00 #Calculate the actual percentage of canary traffic
 
 # Prometheus Queries
 prometheus_metrics:
-  main_request_rate: #TODO: Enter the result of rate(http_requests_total{version="v1"}[5m])
-  canary_request_rate: #TODO: Enter the result of rate(http_requests_total{version="v2"}[5m])
+  main_request_rate: 2.017392987654321 #req/s the result of rate(http_requests_total{version="v1"}[5m])
+  canary_request_rate: 0.5148148148148148 #req/s the result of rate(http_requests_total{version="v2"}[5m])
 
 # Rollback Test
 rollback_test:
-  previous_revision: 2 #TODO: Enter the revision number before rollback
-  rollback_command_used: helm rollback canary-demo 1 -n canary-demo #the helm rollback command you used
-  time_to_rollback_seconds: #TODO: Enter how long the rollback took to complete
+  previous_revision: 2 #the revision number before rollback
+  rollback_command_used:  time helm rollback canary-demo 1 -n canary-demo --wait #the helm rollback command you used
+  time_to_rollback_seconds: 1.644 #how long the rollback took to complete
 
 # Error Budget Calculation (based on 99.9% SLO)
 error_budget:
@@ -49,5 +49,5 @@ error_budget:
 
 # Additional Observations
 observations:
-  unexpected_behaviors: #TODO: List any unexpected behaviors you observed
-  suggested_improvements: #TODO: List any improvements you would suggest
+  unexpected_behaviors: this command "helm list -a -n canary-demo" did not work with "-a" and a firewall rule made it so that minikube could not acces the internet. Test gave 30% canary but actual was 20. Sample size too small.  #List any unexpected behaviors you observed
+  suggested_improvements: remove blocking firewall rule #List any improvements you would suggest
